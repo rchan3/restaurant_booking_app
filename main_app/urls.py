@@ -1,0 +1,11 @@
+from django.urls import path, include
+from . import views
+
+# New url pattern below
+urlpatterns = [
+    path('', views.home),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup', views.signup, name='signup'),
+]
+
+
