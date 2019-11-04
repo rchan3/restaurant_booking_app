@@ -13,6 +13,19 @@ class Restaurant(models.Model):
     rating = models.IntegerField(default=5,validators=[MinValueValidator(0),MaxValueValidator(5)])
     opening_time = models.IntegerField(default=9,validators=[MinValueValidator(0),MaxValueValidator(24)])
     closing_time = models.IntegerField(default=23,validators=[MinValueValidator(0),MaxValueValidator(24)])
+    description = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.name
+
+class Menu_Item(models.Model):
+    restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=5,decimal_places=2)
+    description = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.name
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
