@@ -3,9 +3,9 @@ from . import views
 
 # New url pattern below
 urlpatterns = [
-    path('', views.home),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup', views.signup, name='signup'),
+    path('', views.home, name='homepage'),
+    path('auth/', include('django.contrib.auth.urls'), name='login'),
+    path('auth/signup', views.signup, name='signup'),
 ]
 
 

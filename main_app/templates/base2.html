@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant App</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,300,700|Roboto:300,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body style="padding-top: 6rem; position: relative;">
+	<nav class="_navbar navbar-fixed-dark" id="navbar">
+		<div class="flex-row">
+			<ul class="navbar-list">
+				<li class="navbar-list_item"><a href="{% url 'homepage' %}">Home</a></li>
+				<li class="navbar-list_item"><a href="#!">Restaurants</a></li>
+				<li class="navbar-list_item"><a href="#!">Reservation</a></li>
+				{% if user.is_authenticated %}
+					<li class="navbar-list_item"><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+					<li class="navbar-list_item"><a href="{% url 'login' %}">Login</a></li>
+				{% endif %}
+			</ul>
+		</div>	
+	</nav>
+	
+	{% block mainContent %}
+  {% endblock %}
+	
+	<footer class="footer">
+		<p>Copyright Samuel | Paul | Rachel <span id="year"></span> &copy;</p>
+	</footer>
+</body>
+</html>
