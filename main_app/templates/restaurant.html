@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>restaurant index</h1>
+{% for restaurant in restaurants %}
+<p>{{ restaurant.name }}</p>    
+{% endfor %}
+{% endblock %}
