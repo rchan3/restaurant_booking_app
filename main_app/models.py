@@ -13,7 +13,7 @@ class Restaurant(models.Model):
     rating = models.IntegerField(default=5,validators=[MinValueValidator(0),MaxValueValidator(5)])
     opening_time = models.IntegerField(default=9,validators=[MinValueValidator(0),MaxValueValidator(24)])
     closing_time = models.IntegerField(default=23,validators=[MinValueValidator(0),MaxValueValidator(24)])
-    description = models.CharField(max_length=500)
+    description = models.CharField(default="",max_length=250)
     
     def __str__(self):
         return self.name
