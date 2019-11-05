@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .models import Restaurant
+# Create your views here.
 from django.contrib.auth.decorators import login_required
 
 def home(request):
   return render(request, 'index.html')
+
+def restaurants(request):
+  restaurants = Restaurant.objects.all()
+  return render(request, 'restaurant/index.html', { 'restaurants': restaurants })
 
 def signup(request):
   error_message = ''
