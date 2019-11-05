@@ -65,6 +65,9 @@ h4, h5{
 	border: 1px solid rgba(243, 156, 18, .8);
 }
 
+.my_wrapper{
+	margin: 4rem 2rem;
+}
 /*===============
 NAVBAR SEACTION
 ================*/
@@ -113,6 +116,7 @@ NAVBAR SEACTION
 	position: fixed;
 	background-color: #000;
 }
+
 /*===============
 HEADER SEACTION
 ================*/
@@ -208,6 +212,10 @@ RESTAURANTS GRID
 	filter: brightness(12%);
 }
 
+/*===============
+DASHBOARD PAGE
+================*/
+
 
 /*===============
 FOOTER SECTION
@@ -237,9 +245,9 @@ FOOTER SECTION
 	}
 }
 
-/*========
-FORMS
-=========*/
+/*==========
+	FORMS
+===========*/
 .form-wrapper{
 	display: flex;
 	margin: 1rem 0 3rem 0;

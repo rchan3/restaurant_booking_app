@@ -1,42 +1,90 @@
 {% extends 'base2.html' %}
 {% block mainContent %}
-<div class="container">
-  <div class="row">
-  	<div class="col-sm-3 text-xs-center">
-      <img src="//placehold.it/150" class="m-x-auto img-fluid" alt="avatar">
-      <h5>Upload a different photo</h5>
-      <label class="custom-file">
-      	<input type="file" id="file" class="custom-file-input">
-        <span class="custom-file-control">Choose file</span>
-      </label>
-    </div>
+  <div class="container">
+    <div class="row" style="margin: 5rem 2rem;">
+    	<div class="col-sm-3">
+        <img src="//placehold.it/150" class="m-x-auto img-fluid" alt="avatar">
+        <h5>Upload a different photo</h5>
+        <label class="custom-file">
+        	<input type="file" id="file" class="custom-file-input">
+          <span class="custom-file-control">Choose file</span>
+        </label>
+      </div>
 
-    <div class="col-sm-9">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-        	<a href="#!" data-target="#bookings" data-toggle="tab" class="nav-link active">Reservations</a>
-        </li>
-        <li class="nav-item">
-          <a href="#!" data-target="#settings" data-toggle="tab" class="nav-link">Setting</a>
-        </li>
-        <li class="nav-item">
-          <a href="#!" data-target="#reviews" data-toggle="tab" class="nav-link">Reviews</a>
-        </li>
-        <li class="nav-item">
-          <a href="#!" data-target="#restaurants" data-toggle="tab" class="nav-link">My Restaurants</a>
-        </li>
-      </ul>
+      <div class="col-sm-9">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+          	<a href="#!" data-target="#bookings" data-toggle="tab" class="nav-link active">Reservations</a>
+          </li>
+          <li class="nav-item">
+            <a href="#!" data-target="#settings" data-toggle="tab" class="nav-link">Setting</a>
+          </li>
+          <li class="nav-item">
+            <a href="#!" data-target="#restaurants" data-toggle="tab" class="nav-link">My Restaurants</a>
+          </li>
+        </ul><br>
 
-      <div class="tab-content">
-        <div class="tab-pane active" id="bookings">
-        	
-        </div>
+        <div class="tab-content">
+          <div class="tab-pane active" id="bookings">
+          	<table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Restaurant Name</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <div class="tab-pane" id="settings">
-            
+          <div class="tab-pane" id="settings">
+              
+          </div>
+
+          <div class="tab-pane active" id="restaurants">
+            <div class="restaurant_details">
+              <h3>Restaurant Name</h3><hr>
+              <dl class="row">
+                <dt class="col-sm-3">Location: </dt>
+                <dd class="col-sm-9">220 King Street, Toronto, Canada.</dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-3">Capacity: </dt>
+                <dd class="col-sm-9">60</dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-3">Store Hourse: </dt>
+                <dd class="col-sm-9">9am - 11pm</dd>
+              </dl>
+              <dl class="row">
+                <dt class="col-sm-3">Average Rating: </dt>
+                <dd class="col-sm-9">5</dd>
+              </dl>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}

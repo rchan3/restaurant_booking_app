@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
   return render(request, 'index.html')
@@ -24,5 +25,6 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+@login_required(login_url='/auth/login/')
 def dashboard(request):
   return render(request, 'user/dashboard.html')
