@@ -6,6 +6,7 @@
 <p>Owned by:{{restaurant.owner}}</p>
 <p>Rating:{{restaurant.rating}}</p>
 <p>Opening Times: 
+    <!-- change integer time to normal people AM/PM time -->
     {% if restaurant.opening_time < 12 %}
     
      {{restaurant.opening_time}}:00 AM
