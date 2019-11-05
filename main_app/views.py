@@ -8,7 +8,7 @@ def home(request):
 
 def restaurants(request):
   restaurants = Restaurant.objects.all()
-  return render(request, 'restaurant.html', { 'restaurants': restaurants })
+  return render(request, 'restaurant/index.html', { 'restaurants': restaurants })
 
 def signup(request):
   error_message = ''
