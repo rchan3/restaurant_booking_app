@@ -12,6 +12,10 @@ def restaurants(request):
   restaurants = Restaurant.objects.all()
   return render(request, 'restaurant/index.html', { 'restaurants': restaurants })
 
+def restaurant_detail(request, restaurant_id):
+  restaurant = Restaurant.objects.get(id=restaurant_id)
+  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant })
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
