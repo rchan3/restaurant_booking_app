@@ -1,12 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Sign Up</h1>
-
-{% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
-
-<form class="form" method="POST" action="{% url 'signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" class="btn" value="signup">
-</form>
+{% extends 'base2.html' %}
+{% block mainContent %}
+<div class="container">
+	<div class="row">
+		{% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+		<div class="col-sm-6 offset-sm-3">
+			<div class="form-wrapper">
+				<h1 class="title text-center">Register</h1><hr>
+	      <form class="form" method="POST" action="{% url 'signup' %}">
+				  {% csrf_token %}
+				  {{ form.as_p }}
+				  <input type="submit" class="btn btn-success btn-block" value="signup">
+				</form>
+	    </div>
+    </div>
+	</div>
+</div>
 {% endblock %}
+
+
+

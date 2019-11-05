@@ -1,0 +1,42 @@
+{% extends 'base2.html' %}
+{% block mainContent %}
+<div class="container">
+  <div class="row">
+  	<div class="col-sm-3 text-xs-center">
+      <img src="//placehold.it/150" class="m-x-auto img-fluid" alt="avatar">
+      <h5>Upload a different photo</h5>
+      <label class="custom-file">
+      	<input type="file" id="file" class="custom-file-input">
+        <span class="custom-file-control">Choose file</span>
+      </label>
+    </div>
+
+    <div class="col-sm-9">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+        	<a href="#!" data-target="#bookings" data-toggle="tab" class="nav-link active">Reservations</a>
+        </li>
+        <li class="nav-item">
+          <a href="#!" data-target="#settings" data-toggle="tab" class="nav-link">Setting</a>
+        </li>
+        <li class="nav-item">
+          <a href="#!" data-target="#reviews" data-toggle="tab" class="nav-link">Reviews</a>
+        </li>
+        <li class="nav-item">
+          <a href="#!" data-target="#restaurants" data-toggle="tab" class="nav-link">My Restaurants</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="bookings">
+        	
+        </div>
+
+        <div class="tab-pane" id="settings">
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
