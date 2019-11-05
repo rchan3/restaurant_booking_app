@@ -21,8 +21,8 @@
 			{% if user.is_authenticated == False %}
 				<p class="subtitle">Signup to make your reservation and order before arriving for your dinner date.</p>
 				<div class="header-btns">
-					<a href="#!" class="btn btn-success">Signup</a>
-					<a href="#!" class="btn btn-info">Login</a>
+					<a href="{% url 'signup' %}" class="btn btn-success">Signup</a>
+					<a href="{% url 'login' %}" class="btn btn-info">Login</a>
 				</div>
 			{% else %}
 			<h3>Select a from a list of restaurants below.</h3>
