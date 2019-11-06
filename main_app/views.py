@@ -1,12 +1,17 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from .models import Profile
+from .models import Restaurant
 from django.contrib import messages
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm
-from .models import Profile
 
 def home(request):
   return render(request, 'index.html')
+
+def restaurants(request):
+  restaurants = Restaurant.objects.all()
+  return render(request, 'restaurant/index.html', { 'restaurants': restaurants })
 
 def signup(request):
   if request.method == 'POST':
