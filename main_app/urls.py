@@ -8,7 +8,8 @@ urlpatterns = [
     path('auth/signup', views.signup, name='signup'),
     path('restaurants/', views.restaurants, name='restaurants'),
     path('profile/', views.dashboard, name='user_dashboard'),
-    path('restaurants/<int:restaurant_id>/', views.restaurant_detail, name='rdetail')
+    path('restaurants/<int:restaurant_id>/', views.restaurant_detail, name='rdetail'),
+    path('restaurants/new-restaurant/', views.RestaurantCreate.as_view(), name='rnew'),
 ]
 
 

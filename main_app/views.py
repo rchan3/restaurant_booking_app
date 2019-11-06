@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import Restaurant
-# Create your views here.
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def home(request):
   return render(request, 'index.html')
@@ -15,6 +16,16 @@ def restaurants(request):
 def restaurant_detail(request, restaurant_id):
   restaurant = Restaurant.objects.get(id=restaurant_id)
   return render(request, 'restaurant/detail.html', { 'restaurant': restaurant })
+
+class RestaurantCreate(LoginRequiredMixin, CreateView):
+  model = Restaurant
+  fields = ['name', 'location', 'max_capacity', 'opening_time', 'closing_time', 'description']
+
+  def form_valid(self, form):
+    form.instance.owner = self.request.user
+    return super().form_valid(form)
+
+  success_url = 'restaurants/'
 
 def signup(request):
   error_message = ''
