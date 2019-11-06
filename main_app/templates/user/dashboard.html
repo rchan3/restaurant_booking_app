@@ -1,10 +1,11 @@
 {% extends 'base2.html' %}
+{% load crispy_forms_tags %}
 {% block mainContent %}
   <div class="container">
     <div class="row" style="margin: 5rem 2rem;">
     	<div class="col-sm-3">
         <img src="//placehold.it/150" class="m-x-auto img-fluid" alt="avatar">
-        <h5>Upload a different photo</h5>
+        <h5>{{ user.username }}</h5>
         <label class="custom-file">
         	<input type="file" id="file" class="custom-file-input">
           <span class="custom-file-control">Choose file</span>
@@ -59,7 +60,19 @@
           </div>
 
           <div class="tab-pane" id="settings">
-              
+            <div class="col-sm-9">
+              <div class="form-wrapper">
+                <h1 class="title text-center">Update Profile</h1><hr>
+                <form class="form" method="POST">
+                  {% csrf_token %}
+
+                  {{ userForm| crispy }}
+                  {{ profileForm| crispy }}
+
+                  <input type="submit" value="Update" class="btn btn-info btn-block">
+                </form>
+              </div>
+            </div> 
           </div>
 
           <div class="tab-pane active" id="restaurants">
