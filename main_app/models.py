@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.urls import reverse
 
 # Create your models here.
 
@@ -17,6 +18,9 @@ class Restaurant(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'restaurant_id': self.id})
 
 class Menu_Item(models.Model):
     restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)

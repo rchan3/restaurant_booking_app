@@ -1,0 +1,31 @@
+{% extends 'base2.html' %}
+{% block mainContent %}
+<h1>{{restaurant.name}}</h1>
+<h2>{{restaurant.location}}</h2>
+<p>Max Capacity:{{restaurant.max_capacity}}</p>
+<p>Owned by:{{restaurant.owner}}</p>
+<p>Rating:{{restaurant.rating}}</p>
+<p>Opening Times: 
+    <!-- change integer time to normal people AM/PM time -->
+    {% if restaurant.opening_time < 12 %}
+    
+     {{restaurant.opening_time}}:00 AM
+    
+    {% else %}
+    
+     {{restaurant.opening_time|add:"-12"}}:00 PM
+    
+    {% endif %}
+    -
+    {% if restaurant.closing_time < 12 %}
+    
+     {{restaurant.closing_time}}:00 AM
+    
+    {% else %}
+    
+     {{restaurant.closing_time|add:"-12"}}:00 PM
+    
+    {% endif %}
+</p>
+<p>Description: {{restaurant.description}}</p>
+{% endblock %}
