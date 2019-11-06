@@ -8,6 +8,7 @@
 					<li class="navbar-list_item"><a href="{% url 'restaurants' %}">Restaurants</a></li>
 					<li class="navbar-list_item"><a href="#!">Reservation</a></li>
 					{% if user.is_authenticated %}
+						<li class="navbar-list_item"><a href="{% url 'rnew' %}">Create Restaurant</a></li>
 						<li class="navbar-list_item"><a href="{% url 'user_dashboard' %}">Dashboard</a></li>
 						<li class="navbar-list_item"><a href="{% url 'logout' %}">Logout</a></li>
 					{% else %}

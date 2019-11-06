@@ -1,9 +1,12 @@
-from .models import Profile
-from .models import Restaurant
-from django.contrib import messages
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from .models import Profile, Restaurant
+
+from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
 from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm
 
 def home(request):
@@ -12,6 +15,20 @@ def home(request):
 def restaurants(request):
   restaurants = Restaurant.objects.all()
   return render(request, 'restaurant/index.html', { 'restaurants': restaurants })
+
+def restaurant_detail(request, restaurant_id):
+  restaurant = Restaurant.objects.get(id=restaurant_id)
+  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant })
+
+class RestaurantCreate(LoginRequiredMixin, CreateView):
+  model = Restaurant
+  fields = ['name', 'location', 'max_capacity', 'opening_time', 'closing_time', 'description']
+
+  def form_valid(self, form):
+    form.instance.owner = self.request.user
+    return super().form_valid(form)
+
+  success_url = '/restaurants/'
 
 def signup(request):
   if request.method == 'POST':

@@ -1,7 +1,7 @@
 {% extends 'base2.html' %}
 {% block mainContent %}
 <h1>restaurant index</h1>
-<!-- {% for restaurant in restaurants %}
-<p>{{ restaurant.name }}</p>    
-{% endfor %} -->
+{% for restaurant in restaurants %}
+<h2><a href="/restaurants/{{restaurant.id}}">{{ restaurant.name }}</a></h2>
+{% endfor %}
 {% endblock %}
