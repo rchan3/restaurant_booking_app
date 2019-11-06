@@ -1,5 +1,6 @@
 {% extends 'base2.html' %}
 {% block mainContent %}
+{% load crispy_forms_tags %}
 <div class="container">
 	<div class="row">
 		{% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
@@ -8,7 +9,7 @@
 				<h1 class="title text-center">Register</h1><hr>
 	      <form class="form" method="POST" action="{% url 'signup' %}">
 				  {% csrf_token %}
-				  {{ form.as_p }}
+				  {{ form| crispy }}
 				  <input type="submit" class="btn btn-success btn-block" value="signup">
 				</form>
 	    </div>

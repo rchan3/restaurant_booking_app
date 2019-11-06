@@ -36,9 +36,8 @@ class Profile(models.Model):
 	location = models.CharField(max_length=100)
 	first_name = models.CharField(max_length=50) 
 	last_name = models.CharField(max_length=50)
-	email = models.EmailField(max_length=100)
 	phone = models.IntegerField()
 	createdAt = models.DateTimeField(default=datetime.now)
 
 	def __str__(self):
-		return first_name + " " + last_name
+		return self.user.username
