@@ -25,7 +25,7 @@ class RestaurantCreate(LoginRequiredMixin, CreateView):
     form.instance.owner = self.request.user
     return super().form_valid(form)
 
-  success_url = 'restaurants/'
+  success_url = '/restaurants/'
 
 def signup(request):
   error_message = ''
