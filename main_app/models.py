@@ -4,12 +4,11 @@ from django.utils.timezone import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
 
-# Create your models here.
-
 class Restaurant(models.Model):
   name = models.CharField(max_length=100)
   location = models.CharField(max_length=100)
   max_capacity = models.IntegerField()
+  # reservations = models.ManyToManyField(Reservation, on_delete=models.CASCADE)
   owner = models.ForeignKey(User, on_delete=models.CASCADE)
   rating = models.IntegerField(default=5,validators=[MinValueValidator(0),MaxValueValidator(5)])
   opening_time = models.IntegerField(default=9,validators=[MinValueValidator(0),MaxValueValidator(24)])
@@ -43,9 +42,9 @@ class Profile(models.Model):
 		return self.user.username
 
 class Reservation(models.Model):
-  restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE)
-  customer = models.ForeignKey('Profile', on_delete=models.CASCADE)
+  customer = models.ForeignKey(User, on_delete=models.CASCADE)
+  restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
   guest_num = models.IntegerField(default=1)
-  menu_item = models.ForeignKey('Menu_Item', null=True, blank=True, on_delete=models.SET_NULL)
+  menu_item = models.ForeignKey(Menu_Item, null=True, blank=True, on_delete=models.SET_NULL)
   booking_date = models.DateTimeField(default=datetime.now)
   booking_time = models.IntegerField(default=16,validators=[MinValueValidator(16),MaxValueValidator(23)])
