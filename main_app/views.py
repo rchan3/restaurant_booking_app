@@ -1,4 +1,4 @@
-from .models import Profile, Restaurant
+from .models import Profile, Restaurant, Menu
 
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
-from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm
+from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm, MenuForm
 
 def home(request):
   return render(request, 'index.html')
@@ -18,7 +18,17 @@ def restaurants(request):
 
 def restaurant_detail(request, restaurant_id):
   restaurant = Restaurant.objects.get(id=restaurant_id)
-  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant })
+  menu_form = MenuForm()
+  location = restaurant.location.replace(" ","+")
+  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant, 'menu_form': menu_form, 'location':location })
+
+def add_menu(request, restaurant_id):
+    form = MenuForm(request.POST)
+    if form.is_valid():
+      new_menu = form.save(commit=False)
+      new_menu.restaurant_id = restaurant_id
+      new_menu.save()
+    return redirect('rdetail', restaurant_id=restaurant_id)
 
 class RestaurantCreate(LoginRequiredMixin, CreateView):
   model = Restaurant
@@ -29,6 +39,7 @@ class RestaurantCreate(LoginRequiredMixin, CreateView):
     return super().form_valid(form)
 
   success_url = '/restaurants/'
+
 
 def signup(request):
   if request.method == 'POST':
@@ -67,3 +78,4 @@ def dashboard(request):
     usr_form = UserUpdateForm(instance=request.user)
     context = { 'userForm': usr_form, 'profileForm': p_form}
     return render(request, 'user/dashboard.html', context)
+
