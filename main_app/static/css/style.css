@@ -74,7 +74,7 @@ NAVBAR SEACTION
 ._navbar{
 	width: 100%;
 	overflow: hidden;
-	padding: 1rem;
+	padding: 2rem 1rem;
 }
 
 .navbar-list{
@@ -205,6 +205,10 @@ RESTAURANTS GRID
 .restaurant-desc:hover p{
 	color: #fff;
 	font-weight: 600;
+}
+
+.restaurant-desc h3 a.btn-link-ghost{
+	border: 1px solid #ddd;
 }
 
 .darkOverlay{

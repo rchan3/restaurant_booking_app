@@ -1,13 +1,11 @@
 const restaurants = document.querySelectorAll('.restaurants-list_item');
 
 restaurants.forEach(restaurant => {
-  restaurant.addEventListener('mouseover', () => {
-    console.log(restaurant.childNodes[1].classList)
+  restaurant.addEventListener('mouseenter', () => {
     restaurant.childNodes[1].classList.add('darkOverlay');
   });
 
-  restaurant.addEventListener('mouseout', () => {
-    console.log(restaurant.childNodes[1].classList)
+  restaurant.addEventListener('mouseleave', () => {
     restaurant.childNodes[1].classList.remove('darkOverlay');
   });
 });

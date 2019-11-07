@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 	<header id="header" class="header">
-		<nav class="navbar" id="navbar">
+		<nav class="_navbar" id="navbar">
 			<div class="flex-row">
 				<ul class="navbar-list">
 					<li class="navbar-list_item"><a href="{% url 'homepage' %}">Home</a></li>
@@ -34,69 +35,16 @@
 
 	<div class="grid-wrapper">
 		<div class="restaurants-list">
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img1.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
+			{% for restaurant in restaurants %}
+				<div class="restaurants-list_item">
+					<div class="restaurant-img" style="background-image: url({% static 'img/img1.jpg' %});"></div>
+					<div class="restaurant-desc">
+						<h3>{{ restaurant.name }}</h3>
+						<p>{{ restaurant.description| truncatechars:80 }}</p>
+						<h4><a href="{% url 'rdetail' restaurant.id %}" class="btn btn-link btn-link-ghost">View Menu</a></h4>
+					</div>
 				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img2.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img1.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img2.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img1.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img2.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img1.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
-
-			<div class="restaurants-list_item">
-				<div class="restaurant-img" style="background-image: url(static/img/img2.jpg)"></div>
-				<div class="restaurant-desc">
-					<h4>Boston Pizza</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum saepe quae fuga nam ipsum, aut.</p>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}
