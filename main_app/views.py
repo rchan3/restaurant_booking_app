@@ -1,12 +1,11 @@
-from .models import Profile, Restaurant, Reservation
-
+from .models import Profile, Restaurant, Reservation, Menu
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm, ReservationCreateForm
+from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm, ReservationCreateForm, MenuForm
 
 def home(request):
   restaurants = Restaurant.objects.all()
@@ -19,7 +18,17 @@ def restaurants(request):
 def restaurant_detail(request, restaurant_id):
   restaurant = Restaurant.objects.get(id=restaurant_id)
   form = ReservationCreateForm()
-  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant, 'reservationForm': form })
+  menu_form = MenuForm()
+  location = restaurant.location.replace(" ","+")
+  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant, 'menu_form': menu_form, 'location':location, 'reservationForm': form })
+
+def add_menu(request, restaurant_id):
+    form = MenuForm(request.POST)
+    if form.is_valid():
+      new_menu = form.save(commit=False)
+      new_menu.restaurant_id = restaurant_id
+      new_menu.save()
+    return redirect('rdetail', restaurant_id=restaurant_id)
 
 class RestaurantCreate(LoginRequiredMixin, CreateView):
   model = Restaurant
@@ -90,5 +99,5 @@ def create_reservation(request, restaurant_id):
     else:
       messages.error(request, "Reservation currently not accepted by this restaurant.")
       return redirect(f'/restaurants/{restaurant_id}/')
-
-      
+    
+    

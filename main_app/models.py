@@ -20,7 +20,7 @@ class Restaurant(models.Model):
   
   def get_absolute_url(self):
       return reverse('detail', kwargs={'restaurant_id': self.id})
-
+    
   def get_current_capacity(self):
     return self.max_capacity
 
@@ -34,7 +34,7 @@ class Restaurant(models.Model):
     self.max_capacity -= int(reservation['guest_num'])
     return self.max_capacity
 
-class Menu_Item(models.Model):
+class Menu(models.Model):
   restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
   name = models.CharField(max_length=100)
   price = models.DecimalField(max_digits=5,decimal_places=2)
@@ -59,6 +59,6 @@ class Reservation(models.Model):
   restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
   guest_num = models.IntegerField(default=1)
   note = models.CharField(default="", max_length=300, null=True, blank=True)
-  menu_item = models.ForeignKey(Menu_Item, null=True, blank=True, on_delete=models.SET_NULL)
+  menu_item = models.ForeignKey(Menu, null=True, blank=True, on_delete=models.SET_NULL)
   booking_date = models.DateTimeField(default=datetime.now)
   booking_time = models.IntegerField(default=16,validators=[MinValueValidator(16),MaxValueValidator(23)])
