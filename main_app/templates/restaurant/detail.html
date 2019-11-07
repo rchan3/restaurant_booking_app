@@ -28,6 +28,7 @@
     {% endif %}
 </p>
 <p>Description: {{restaurant.description}}</p>
+{% if restaurant.owner == request.user %}
 <div>
     <h2>add menu item</h2>
     <form action="{% url 'add_menu' restaurant.id %}" method="post">
@@ -36,6 +37,8 @@
         <input type="submit" class="btn" value="Add Menu Item">
     </form>
 </div>
+{% endif %}
+
 <div>
     {%if restaurant.menu_set.all.count > 0%}
     <h2 class="display-3">menu</h2>
