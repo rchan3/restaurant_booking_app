@@ -96,12 +96,12 @@
                 </ul>
             </div>
         </div>
-        
+        {% if restaurant.owner != request.user %}
         <div class="col-sm-6">
             <div class="restaurant-reservation-form">
                 <div class="form-wrapper">
                     <h1 class="title text-center">Make Reservation</h1><hr>
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated%}
                     <form class="form" action="{% url 'newReservation' restaurant.id %}" method="POST" >
                         {% csrf_token %}
                         {{ reservationForm| crispy }}
@@ -114,6 +114,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
