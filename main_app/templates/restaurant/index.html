@@ -1,7 +1,18 @@
 {% extends 'base2.html' %}
+{% load static %}
 {% block mainContent %}
-<h1>restaurant index</h1>
-{% for restaurant in restaurants %}
-<h2><a href="/restaurants/{{restaurant.id}}">{{ restaurant.name }}</a></h2>
-{% endfor %}
+	<div class="grid-wrapper">
+		<div class="restaurants-list">
+			{% for restaurant in restaurants %}
+				<div class="restaurants-list_item">
+					<div class="restaurant-img" style="background-image: url({% static 'img/img1.jpg' %});"></div>
+					<div class="restaurant-desc">
+						<h4>{{ restaurant.name }}</h4>
+						<p>{{ restaurant.description| truncatechars:40 }}</p>
+						<h3 class="text-center"><a href="{% url 'rdetail' restaurant.id %}" class="btn btn-link btn-link-ghost">View Menu</a></h3>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

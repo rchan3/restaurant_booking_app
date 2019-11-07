@@ -37,24 +37,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                {% for booking in reservations %}
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{{ booking.restaurant.name }}</td>
+                    <td>{{ booking.restaurant.location }}</td>
+                    <td>{{ booking.booking_date }}</td>
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -63,7 +53,7 @@
             <div class="col-sm-9">
               <div class="form-wrapper">
                 <h1 class="title text-center">Update Profile</h1><hr>
-                <form class="form" method="POST">
+                <form class="form" method="POST" action="{% url 'update_user_info' %}">
                   {% csrf_token %}
 
                   {{ userForm| crispy }}
@@ -77,23 +67,25 @@
 
           <div class="tab-pane active" id="restaurants">
             <div class="restaurant_details">
-              <h3>Restaurant Name</h3><hr>
-              <dl class="row">
-                <dt class="col-sm-3">Location: </dt>
-                <dd class="col-sm-9">220 King Street, Toronto, Canada.</dd>
-              </dl>
-              <dl class="row">
-                <dt class="col-sm-3">Capacity: </dt>
-                <dd class="col-sm-9">60</dd>
-              </dl>
-              <dl class="row">
-                <dt class="col-sm-3">Store Hourse: </dt>
-                <dd class="col-sm-9">9am - 11pm</dd>
-              </dl>
-              <dl class="row">
-                <dt class="col-sm-3">Average Rating: </dt>
-                <dd class="col-sm-9">5</dd>
-              </dl>
+              {% for restaurant in restaurants %}
+                <div class="restaurant">
+                  <h3> <a href="{% url 'rdetail' restaurant.id %}">{{ restaurant.name }}</a></h3>
+                  <dl class="row">
+                    <dt class="col-sm-3">Location: </dt>
+                    <dd class="col-sm-9">220 King Street, Toronto, Canada.</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-3">No Reservations: </dt>
+                    <dd class="col-sm-9">5</dd>
+                  </dl>
+                  <dl class="row">
+                    <p>
+                      <a href="{% url 'rdetail' restaurant.id %}" class="btn btn-info">Edit</a>
+                      <a href="{% url 'rdetail' restaurant.id %}" class="btn btn-danger">Delete</a>
+                    </p>
+                  </dl><hr>
+                </div>
+              {% endfor %}
             </div>
           </div>
         </div>
