@@ -37,24 +37,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                {% for booking in reservations %}
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{{ booking.restaurant.name }}</td>
+                    <td>{{ booking.restaurant.location }}</td>
+                    <td>{{ booking.booking_date }}</td>
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -63,7 +53,7 @@
             <div class="col-sm-9">
               <div class="form-wrapper">
                 <h1 class="title text-center">Update Profile</h1><hr>
-                <form class="form" method="POST">
+                <form class="form" method="POST" action="{% url 'update_user_info' %}">
                   {% csrf_token %}
 
                   {{ userForm| crispy }}
