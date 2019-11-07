@@ -1,0 +1,22 @@
+{% extends 'base2.html' %}
+{% load crispy_forms_tags %}
+{% block mainContent %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-9 offset-sm-2">
+			<div class="form-wrapper">
+				<h1 class="title text-center">Add New Restaurant</h1><hr>
+	      <form class="form" action="{% url 'login' %}" method="POST" class='form'>
+					{% csrf_token %}
+
+					{{ form| crispy }}
+	        <input type="submit" value="Submit" class="btn btn-success btn-block">
+					
+					<hr>
+					<input type="hidden" name="next" value="{{ next }}">
+	      </form>
+	    </div>
+    </div>
+	</div>
+</div>
+{% endblock %}

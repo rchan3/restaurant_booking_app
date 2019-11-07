@@ -9,7 +9,8 @@ from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm, ReservationCreateForm
 
 def home(request):
-  return render(request, 'index.html')
+  restaurants = Restaurant.objects.all()
+  return render(request, 'index.html', {'restaurants': restaurants})
 
 def restaurants(request):
   restaurants = Restaurant.objects.all()
@@ -22,6 +23,7 @@ def restaurant_detail(request, restaurant_id):
 
 class RestaurantCreate(LoginRequiredMixin, CreateView):
   model = Restaurant
+  template_name = 'restaurant/new.html'
   fields = ['name', 'location', 'max_capacity', 'opening_time', 'closing_time', 'description']
 
   def form_valid(self, form):
@@ -47,6 +49,7 @@ def signup(request):
 
 @login_required
 def dashboard(request):
+  user_restaurants = Restaurant.objects.filter(owner=request.user)
   if request.method == 'POST':
     usr_form = UserUpdateForm(request.POST, instance=request.user)
     p_form = ProfileCreateForm(request.POST)
@@ -69,7 +72,7 @@ def dashboard(request):
       p_form = ProfileCreateForm()
     
     usr_form = UserUpdateForm(instance=request.user)
-    context = { 'userForm': usr_form, 'profileForm': p_form}
+    context = { 'userForm': usr_form, 'profileForm': p_form, "restaurants": user_restaurants}
     return render(request, 'user/dashboard.html', context)
 
 @login_required

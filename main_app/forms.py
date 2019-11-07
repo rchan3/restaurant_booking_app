@@ -26,7 +26,7 @@ class ReservationCreateForm(forms.ModelForm):
 	guest_num = forms.IntegerField()
 	booking_date = forms.DateField()
 	booking_time = forms.IntegerField()
-	note = forms.CharField(widget=forms.Textarea)
+	note = forms.CharField(widget=forms.Textarea(attrs={'rows':2, 'cols':10}))
 
 	class Meta:
 		model = Reservation
