@@ -52,65 +52,68 @@
                         
                         {{restaurant.closing_time|add:"-12"}}:00 PM
                         
-                        {% endif %}
-                    </p>
-                    <p>Description: {{restaurant.description}}</p>
-                    {% if restaurant.owner == request.user %}
-                    <div>
-                        <h2>add menu item</h2>
-                        <form action="{% url 'add_menu' restaurant.id %}" method="post">
-                            {% csrf_token %}
-                            {{ menu_form.as_p }}
-                            <input type="submit" class="btn" value="Add Menu Item">
-                        </form>
-                    </div>
-                    {% endif %}
+                        {% endif %}  
+                    </li>
                     
-                    <div>
-                        {%if restaurant.menu_set.all.count > 0%}
-                        <h2 class="display-3">menu</h2>
-                        {% endif %}
-                        <table class="table w-50">
-                            {% for menuitem in restaurant.menu_set.all %}   
-                            <tr>
-                                <td>
-                                    <table class="table-borderless">
-                                        <tr>
-                                            <td><h3>{{menuitem.name}}  </h3></td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>{{menuitem.description}}</td>
-                                        </tr>
-                                    </table>
-                                </td>            
-                                <td><h3>${{menuitem.price}}</h3></td> 
-                            </tr>  
-                            {% endfor %}
-                        </table>
-                    </div>
-                </li>
-            </ul>
+                    {% if restaurant.owner == request.user %}
+                    <li class="list-group-item"> 
+                            <div>
+                                    <h2>add menu item</h2>
+                                    <form action="{% url 'add_menu' restaurant.id %}" method="post">
+                                        {% csrf_token %}
+                                        {{ menu_form.as_p }}
+                                        <input type="submit" class="btn" value="Add Menu Item">
+                                    </form>
+                                </div>
+                    </li>
+                    {% endif %}
+
+                    <li class="list-group-item">   
+                        <div>
+                            {%if restaurant.menu_set.all.count > 0%}
+                            <h2 class="display-3">menu</h2>
+                            {% endif %}
+                            <table class="table w-90">
+                                {% for menuitem in restaurant.menu_set.all %}   
+                                <tr>
+                                    <td>
+                                        <table class="table-borderless">
+                                            <tr>
+                                                <td><h3>{{menuitem.name}}  </h3></td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>{{menuitem.description}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>            
+                                    <td><h3>${{menuitem.price}}</h3></td> 
+                                </tr>  
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    
-    <div class="col-sm-6">
-        <div class="restaurant-reservation-form">
-            <div class="form-wrapper">
-                <h1 class="title text-center">Make Reservation</h1><hr>
-                {% if user.is_authenticated %}
-                <form class="form" action="{% url 'newReservation' restaurant.id %}" method="POST" >
-                    {% csrf_token %}
-                    {{ reservationForm| crispy }}
-                    <input type="submit" value="Reserve" class="btn btn-success btn-block"><hr>
-                    <input type="hidden" name="next" value="{{ next }}">
-                </form>
-                {% else %}
-                <h2 class="text-center bg-danger text-white">Please Login to make a reservation.</h2>
-                {% endif %}
+        
+        <div class="col-sm-6">
+            <div class="restaurant-reservation-form">
+                <div class="form-wrapper">
+                    <h1 class="title text-center">Make Reservation</h1><hr>
+                    {% if user.is_authenticated %}
+                    <form class="form" action="{% url 'newReservation' restaurant.id %}" method="POST" >
+                        {% csrf_token %}
+                        {{ reservationForm| crispy }}
+                        <input type="submit" value="Reserve" class="btn btn-success btn-block"><hr>
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </form>
+                    {% else %}
+                    <h2 class="text-center bg-danger text-white">Please Login to make a reservation.</h2>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}
