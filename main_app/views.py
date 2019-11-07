@@ -74,7 +74,11 @@ def dashboard(request):
       messages.success(request, "Profile update was successful...")
       return redirect('user_dashboard')
   else:
-    p_form = ProfileCreateForm(instance=request.user.profile)
+    if request.user.profile:
+      p_form = ProfileCreateForm(instance=request.user.profile)
+    else:
+      p_form = ProfileCreateForm()
+    
     usr_form = UserUpdateForm(instance=request.user)
     context = { 'userForm': usr_form, 'profileForm': p_form}
     return render(request, 'user/dashboard.html', context)
