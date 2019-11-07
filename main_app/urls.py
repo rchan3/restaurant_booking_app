@@ -12,6 +12,7 @@ urlpatterns = [
     path('profile/', views.dashboard, name='user_dashboard'),
     path('restaurants/<int:restaurant_id>/', views.restaurant_detail, name='rdetail'),
     path('restaurants/new-restaurant/', views.RestaurantCreate.as_view(), name='rnew'),
+    path('restaurants/<int:restaurant_id>/reservations/create', views.create_reservation, name='newReservation'),
 ]
 
 

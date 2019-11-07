@@ -8,7 +8,7 @@ class Restaurant(models.Model):
   name = models.CharField(max_length=100)
   location = models.CharField(max_length=100)
   max_capacity = models.IntegerField()
-  # reservations = models.ManyToManyField(Reservation, on_delete=models.CASCADE)
+  current_capacity = models.IntegerField(default=0)
   owner = models.ForeignKey(User, on_delete=models.CASCADE)
   rating = models.IntegerField(default=5,validators=[MinValueValidator(0),MaxValueValidator(5)])
   opening_time = models.IntegerField(default=9,validators=[MinValueValidator(0),MaxValueValidator(24)])
@@ -20,6 +20,19 @@ class Restaurant(models.Model):
   
   def get_absolute_url(self):
       return reverse('detail', kwargs={'restaurant_id': self.id})
+
+  def get_current_capacity(self):
+    return self.max_capacity
+
+  def is_space_available(self, reservation):
+    if self.max_capacity < int(reservation['guest_num']):
+      return True
+    else:
+      return False
+
+  def update_capacity(self, reservation):
+    self.max_capacity -= int(reservation['guest_num'])
+    return self.max_capacity
 
 class Menu_Item(models.Model):
   restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
@@ -45,6 +58,7 @@ class Reservation(models.Model):
   customer = models.ForeignKey(User, on_delete=models.CASCADE)
   restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
   guest_num = models.IntegerField(default=1)
+  note = models.CharField(default="", max_length=300, null=True)
   menu_item = models.ForeignKey(Menu_Item, null=True, blank=True, on_delete=models.SET_NULL)
   booking_date = models.DateTimeField(default=datetime.now)
   booking_time = models.IntegerField(default=16,validators=[MinValueValidator(16),MaxValueValidator(23)])

@@ -1,4 +1,4 @@
-from .models import Profile, Restaurant
+from .models import Profile, Restaurant, Reservation
 
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
@@ -6,8 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import render, redirect
-
-from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm
+from .forms import UserRegisterForm, ProfileCreateForm, UserUpdateForm, ReservationCreateForm
 
 def home(request):
   return render(request, 'index.html')
@@ -18,7 +17,8 @@ def restaurants(request):
 
 def restaurant_detail(request, restaurant_id):
   restaurant = Restaurant.objects.get(id=restaurant_id)
-  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant })
+  form = ReservationCreateForm()
+  return render(request, 'restaurant/detail.html', { 'restaurant': restaurant, 'reservationForm': form })
 
 class RestaurantCreate(LoginRequiredMixin, CreateView):
   model = Restaurant
@@ -71,3 +71,22 @@ def dashboard(request):
     usr_form = UserUpdateForm(instance=request.user)
     context = { 'userForm': usr_form, 'profileForm': p_form}
     return render(request, 'user/dashboard.html', context)
+
+@login_required
+def create_reservation(request, restaurant_id):
+  form = ReservationCreateForm(request.POST)
+  restaurant = Restaurant.objects.get(id=restaurant_id)
+  
+  if form.is_valid():
+    reservation_data = form.cleaned_data
+    if restaurant.is_space_available(reservation_data):
+      updated_capacity = restaurant.update_capacity(reservation_data)
+      new_reservation = form.save(commit=False)
+      new_reservation.customer = request.user
+      new_reservation.restaurant = restaurant
+      new_reservation.save()
+      restaurant.save()
+    else:
+      raise ValueError("No available space for that time slot...")
+
+      
