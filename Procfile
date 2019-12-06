@@ -1,1 +1,1 @@
-web:gunicorn restaurantCMS.wsgi --log-file -
+web: gunicorn restaurantCMS.wsgi --log-file -
